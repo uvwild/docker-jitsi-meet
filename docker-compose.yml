@@ -3,14 +3,15 @@ version: '3'
 services:
     # Frontend
     web:
-        image: jitsi/web:latest
+        image: jitsi/web:${TAG}
         restart: ${RESTART_POLICY}
         ports:
             - '${HTTP_PORT}:80'
             - '${HTTPS_PORT}:443'
         volumes:
-            - ${CONFIG}/web:/config:Z
-            - ${CONFIG}/transcripts:/usr/share/jitsi-meet/transcripts:Z
+            - ${CONFIG}/web:/config
+            - ${CONFIG}/web/letsencrypt:/etc/letsencrypt
+            - ${CONFIG}/transcripts:/usr/share/jitsi-meet/transcripts
         environment:
             - ENABLE_LETSENCRYPT
             - ENABLE_HTTP_REDIRECT
@@ -103,7 +104,7 @@ services:
 
     # XMPP server
     prosody:
-        image: jitsi/prosody:latest
+        image: jitsi/prosody:${TAG}
         restart: ${RESTART_POLICY}
         expose:
             - '5222'
@@ -133,6 +134,7 @@ services:
             - LDAP_TLS_CACERT_FILE
             - LDAP_TLS_CACERT_DIR
             - LDAP_START_TLS
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_GUEST_DOMAIN
@@ -172,13 +174,14 @@ services:
 
     # Focus component
     jicofo:
-        image: jitsi/jicofo:latest
+        image: jitsi/jicofo:${TAG}
         restart: ${RESTART_POLICY}
         volumes:
             - ${CONFIG}/jicofo:/config:Z
         environment:
             - AUTH_TYPE
             - ENABLE_AUTH
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
@@ -201,7 +204,7 @@ services:
 
     # Video bridge
     jvb:
-        image: jitsi/jvb:latest
+        image: jitsi/jvb:${TAG}
         restart: ${RESTART_POLICY}
         ports:
             - '${JVB_PORT}:${JVB_PORT}/udp'
@@ -210,6 +213,7 @@ services:
             - ${CONFIG}/jvb:/config:Z
         environment:
             - DOCKER_HOST_ADDRESS
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
             - XMPP_SERVER
