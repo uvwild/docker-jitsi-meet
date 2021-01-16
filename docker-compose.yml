@@ -9,11 +9,14 @@ services:
             - '${HTTPS_PORT}:443'
         volumes:
             - ${CONFIG}/web:/config
+            - ${CONFIG}/web/letsencrypt:/etc/letsencrypt
+            - ${CONFIG}/transcripts:/usr/share/jitsi-meet/transcripts
         environment:
             - ENABLE_AUTH
             - ENABLE_GUESTS
             - ENABLE_LETSENCRYPT
             - ENABLE_HTTP_REDIRECT
+            - ENABLE_XMPP_WEBSOCKET
             - DISABLE_HTTPS
             - JICOFO_AUTH_USER
             - LETSENCRYPT_DOMAIN
@@ -39,6 +42,7 @@ services:
         environment:
             - ENABLE_AUTH
             - ENABLE_GUESTS
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_GUEST_DOMAIN
@@ -67,6 +71,7 @@ services:
             - ${CONFIG}/jicofo:/config
         environment:
             - ENABLE_AUTH
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
@@ -92,6 +97,7 @@ services:
             - ${CONFIG}/jvb:/config
         environment:
             - DOCKER_HOST_ADDRESS
+            - ENABLE_XMPP_WEBSOCKET
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
             - XMPP_SERVER=xmpp.meet.jitsi
