@@ -21,6 +21,7 @@ services:
             - JICOFO_AUTH_USER
             - LETSENCRYPT_DOMAIN
             - LETSENCRYPT_EMAIL
+            - PUBLIC_URL
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_BOSH_URL_BASE=http://xmpp.meet.jitsi:5280
@@ -72,6 +73,7 @@ services:
         environment:
             - ENABLE_AUTH
             - ENABLE_XMPP_WEBSOCKET
+            - PUBLIC_URL
             - XMPP_DOMAIN
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
@@ -98,6 +100,7 @@ services:
         environment:
             - DOCKER_HOST_ADDRESS
             - ENABLE_XMPP_WEBSOCKET
+            - PUBLIC_URL
             - XMPP_AUTH_DOMAIN
             - XMPP_INTERNAL_MUC_DOMAIN
             - XMPP_SERVER=xmpp.meet.jitsi

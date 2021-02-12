@@ -97,6 +97,12 @@ VirtualHost "{{ .Env.XMPP_DOMAIN }}"
         {{end}}
     }
 
+    # https://community.jitsi.org/t/how-to-how-to-enable-websockets-xmpp-websocket-and-smacks-for-prosody/87920
+    smacks_max_unacked_stanzas = 5;
+    smacks_hibernation_time = 60; 
+    smacks_max_hibernated_sessions = 1;
+    smacks_max_old_sessions = 1;
+
     {{ if and $ENABLE_LOBBY (not $ENABLE_GUEST_DOMAIN) }}
     main_muc = "{{ .Env.XMPP_MUC_DOMAIN }}"
     lobby_muc = "lobby.{{ .Env.XMPP_DOMAIN }}"
