@@ -36,6 +36,9 @@ config.hosts.anonymousdomain = '{{ .Env.XMPP_GUEST_DOMAIN }}';
 config.hosts.authdomain = '{{ $XMPP_DOMAIN }}';
 {{ end -}}
 
+config.useStunTurn: true;
+config.p2p.useStunTurn: true;
+
 config.bosh = '/http-bind';
 {{ if $ENABLE_XMPP_WEBSOCKET -}}
 config.websocket = 'wss://{{ $PUBLIC_URL_DOMAIN }}/xmpp-websocket';

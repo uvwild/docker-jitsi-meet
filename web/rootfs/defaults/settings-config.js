@@ -299,3 +299,7 @@ if (!config.testing.hasOwnProperty('octo')) config.testing.octo = {};
 
 config.testing.capScreenshareBitrate = {{ $TESTING_CAP_SCREENSHARE_BITRATE }};
 config.testing.octo.probability = {{ $TESTING_OCTO_PROBABILITY }};
+
+
+config.p2p.useStunTurn = true
+config.p2p.stunServers= [ { urls: 'stun:jitsid.otcdemo.gardener.t-systems.net:38743' } ]
